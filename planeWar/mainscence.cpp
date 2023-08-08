@@ -18,6 +18,8 @@ Mainscence::Mainscence(QWidget *parent)
 
 Mainscence::~Mainscence()
 {
+    bgm->stop();
+    m_BombSound->stop();
 }
 
 void Mainscence::initScene()
@@ -36,12 +38,21 @@ void Mainscence::initScene()
 
     //随机数种子
     srand((unsigned int)time(NULL));
+
+    //初始化爆炸音效
+    m_BombSound = new QSound(SOUND_BOMB,this);
+
+    //初始化背景音乐
+    bgm = new QSound(SOUND_BACKGROUND, this);
+
+    //设置循环播放
+    bgm->setLoops(QSound::Infinite);
 }
 
 void Mainscence::palyGame()
 {
     //启动背景音乐
-    QSound::play(SOUND_BACKGROUND);
+    bgm->play();
     //启动定时器
     m_Timer.start();
 
@@ -202,7 +213,7 @@ void Mainscence::collisionDetection()
                         m_Bombs[k].m_X = m_Enemys[i].m_X;
                         m_Bombs[k].m_Y = m_Enemys[i].m_Y;
                         //播放爆炸音效
-                        QSound::play(SOUND_BOMB);
+                       m_BombSound->play();
                         break;
                     }
                 }

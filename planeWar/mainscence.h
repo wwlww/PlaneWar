@@ -62,5 +62,11 @@ public:
     //爆炸数组
     Bomb m_Bombs[BOMB_NUM];
 
+    //爆炸音频
+    QSound *m_BombSound;
+
+    //背景音乐
+    QSound *bgm;
+
 };
 #endif // MAINSCENCE_H
